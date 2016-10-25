@@ -1,5 +1,6 @@
 package ni.edu.uca.proyectomoviles1;
 
+import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -18,7 +19,9 @@ import android.view.ViewGroup;
 
 import android.widget.TextView;
 
-public class MainMenuActivity extends AppCompatActivity {
+import ni.edu.uca.proyectomoviles1.dummy.DummyContent;
+
+public class MainMenuActivity extends AppCompatActivity implements BlankFragment.OnFragmentInteractionListener, ItemFragment.OnListFragmentInteractionListener {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -85,6 +88,16 @@ public class MainMenuActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
+
+    @Override
+    public void onListFragmentInteraction(DummyContent.DummyItem item) {
+
+    }
+
     /**
      * A placeholder fragment containing a simple view.
      */
@@ -132,9 +145,21 @@ public class MainMenuActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
+
+            switch (position){
+                case 0:
+                    return PlaceholderFragment.newInstance(position + 1);
+
+                case 1:
+                    return new BlankFragment().newInstance("String 1","String 2");
+
+                case 2:
+                    return new ItemFragment().newInstance(1);
+                default:
+                    return PlaceholderFragment.newInstance(position + 1);
+            }
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
         }
 
         @Override
