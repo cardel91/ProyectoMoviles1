@@ -7,8 +7,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -25,6 +30,7 @@ public class BlankFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    private ListView listView;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -73,14 +79,35 @@ public class BlankFragment extends Fragment {
          * Una vez creada la vista instanciamos nuestros elementos
          * a traves del objeto View que acabamos de crear.
          */
-        View view = inflater.inflate(R.layout.fragment_blank, container, false);
-        Button button = (Button) view.findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getActivity(),"Hola, este es un botón de prueba",Toast.LENGTH_LONG).show();
-            }
-        });
+        View view = inflater.inflate(R.layout.fragment_list, container, false);
+        listView = (ListView) view.findViewById(R.id.listView);
+
+
+        //Declaramos objetos de un tipo especifico (Persona)
+        Persona persona1 = new Persona("Carlos",25,"cardel91@gmail.com",R.mipmap.ic_launcher);
+        Persona persona2 = new Persona("Myriam",24,"myriam@gmail.com",R.mipmap.ic_launcher);
+        Persona persona3 = new Persona("Fernando",26,"fernando@gmail.com",R.mipmap.ic_launcher);
+        Persona persona4 = new Persona("Julio",31,"julio@gmail.com",R.mipmap.ic_launcher);
+        Persona persona5 = new Persona("Francisco",15,"francisco@gmail.com",R.mipmap.ic_launcher);
+        Persona persona6 = new Persona("Marla",23,"marlap@gmail.com",R.mipmap.ic_launcher);
+
+        //Crear una lista de Personas
+        List<Persona> personaList = new ArrayList<>();
+        personaList.add(persona1);
+        personaList.add(persona2);
+        personaList.add(persona3);
+        personaList.add(persona4);
+        personaList.add(persona5);
+        personaList.add(persona6);
+
+        //Adapter sencillo
+        ArrayAdapter<Persona> adapter = new ArrayAdapter<Persona>(getActivity(), android.R.layout.simple_list_item_1, personaList);
+
+        //Adapter personalizado
+
+        PersonaAdapter personaAdapter = new PersonaAdapter(getActivity(), personaList);
+        listView.setAdapter(personaAdapter);
+
         return view;
 
 //        return inflater.inflate(R.layout.fragment_blank, container, false);

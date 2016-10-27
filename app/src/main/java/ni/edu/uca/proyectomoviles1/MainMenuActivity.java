@@ -3,12 +3,10 @@ package ni.edu.uca.proyectomoviles1;
 import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.*;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -154,7 +152,7 @@ public class MainMenuActivity extends AppCompatActivity implements BlankFragment
                     return new BlankFragment().newInstance("String 1","String 2");
 
                 case 2:
-                    return new ItemFragment().newInstance(1);
+                    return  PlaceholderFragment.newInstance(position + 1);
                 default:
                     return PlaceholderFragment.newInstance(position + 1);
             }
