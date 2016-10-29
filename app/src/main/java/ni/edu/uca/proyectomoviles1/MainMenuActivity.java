@@ -19,7 +19,7 @@ import android.widget.TextView;
 
 import ni.edu.uca.proyectomoviles1.dummy.DummyContent;
 
-public class MainMenuActivity extends AppCompatActivity implements BlankFragment.OnFragmentInteractionListener, ItemFragment.OnListFragmentInteractionListener {
+public class MainMenuActivity extends AppCompatActivity implements BlankFragment.OnFragmentInteractionListener, ItemFragment.OnListFragmentInteractionListener, EjemploFragment.OnFragmentInteractionListener {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -152,7 +152,7 @@ public class MainMenuActivity extends AppCompatActivity implements BlankFragment
                     return new BlankFragment().newInstance("String 1","String 2");
 
                 case 2:
-                    return  PlaceholderFragment.newInstance(position + 1);
+                    return  EjemploFragment.newInstance("String 1","String 2");
                 default:
                     return PlaceholderFragment.newInstance(position + 1);
             }
