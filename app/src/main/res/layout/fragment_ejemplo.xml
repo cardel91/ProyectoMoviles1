@@ -9,6 +9,15 @@
 
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/listaEjemplo" />
+        android:layout_height="391dp"
+        android:id="@+id/listaEjemplo"
+        android:layout_weight="1" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="Agregar nuevo"
+        android:id="@+id/button2"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1" />
 </LinearLayout>

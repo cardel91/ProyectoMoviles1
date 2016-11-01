@@ -1,9 +1,11 @@
 package ni.edu.uca.proyectomoviles1;
 
+import com.orm.SugarRecord;
+
 /**
  * Created by Administrador on 26/10/2016.
  */
-public class Persona {
+public class Persona extends SugarRecord {
 
     private String nombre;
     private int edad;
@@ -51,4 +53,6 @@ public class Persona {
     public void setImagen(int imagen) {
         this.imagen = imagen;
     }
+
+
 }

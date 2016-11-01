@@ -1,6 +1,7 @@
 package ni.edu.uca.proyectomoviles1;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -81,13 +83,21 @@ public class EjemploFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_ejemplo, container, false);
 
         ListView listaEjemplo = (ListView) view.findViewById(R.id.listaEjemplo);
+        Button button  = (Button) view.findViewById(R.id.button2);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), NuevoGrupoActivity.class);
+                startActivity(intent);
+            }
+        });
 
         /**
          * Iniciar poblacion de listView
@@ -97,9 +107,11 @@ public class EjemploFragment extends Fragment {
         Grupo grupo3 = new Grupo(0126,"Electiva",29);
 
         List<Grupo> listaGrupos = new ArrayList<>();
-        listaGrupos.add(grupo1);
-        listaGrupos.add(grupo2);
-        listaGrupos.add(grupo3);
+
+        listaGrupos = Grupo.findWithQuery(Grupo.class,"SELECT * FROM GRUPO");
+//        listaGrupos.add(grupo1);
+//        listaGrupos.add(grupo2);
+//        listaGrupos.add(grupo3);
         /**
          * Declaramos un adapter sencillo
          */

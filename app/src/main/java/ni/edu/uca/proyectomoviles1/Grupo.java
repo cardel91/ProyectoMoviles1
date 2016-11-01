@@ -1,28 +1,23 @@
 package ni.edu.uca.proyectomoviles1;
 
+import com.orm.SugarRecord;
+
 /**
  * Created by Administrador on 28/10/2016.
  */
-public class Grupo {
+public class Grupo extends SugarRecord {
 
-    private int id;
+//    private int id;
     private String asignatura;
     private int cantidadEstudiantes;
 
     public Grupo(int id, String asignatura, int cantidadEstudiantes){
-        this.id = id;
         this.asignatura = asignatura;
         this.cantidadEstudiantes = cantidadEstudiantes;
     }
 
+    public Grupo(){}
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getAsignatura() {
         return asignatura;
@@ -42,6 +37,6 @@ public class Grupo {
 
     @Override
     public String toString() {
-        return asignatura + " " + id;
+        return asignatura + " " + getId();
     }
 }
