@@ -7,11 +7,12 @@ import com.orm.SugarRecord;
  */
 public class Grupo extends SugarRecord {
 
-//    private int id;
+    private int idGrupo;
     private String asignatura;
     private int cantidadEstudiantes;
 
-    public Grupo(int id, String asignatura, int cantidadEstudiantes){
+    public Grupo(int idGrupo, String asignatura, int cantidadEstudiantes){
+        this.idGrupo = idGrupo;
         this.asignatura = asignatura;
         this.cantidadEstudiantes = cantidadEstudiantes;
     }
@@ -38,5 +39,13 @@ public class Grupo extends SugarRecord {
     @Override
     public String toString() {
         return asignatura + " " + getId();
+    }
+
+    public int getIdGrupo() {
+        return idGrupo;
+    }
+
+    public void setIdGrupo(int idGrupo) {
+        this.idGrupo = idGrupo;
     }
 }

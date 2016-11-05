@@ -27,4 +27,5 @@
         android:text="Large Text"
         android:id="@+id/cantidadEstudiantes"
         android:layout_weight="0.08" />
+
 </LinearLayout>

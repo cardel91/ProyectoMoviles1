@@ -11,16 +11,16 @@
         >
         <meta-data
             android:name="DATABASE"
-            android:value="sugar_example.db" />
+            android:value="damov.db" />
         <meta-data
             android:name="VERSION"
-            android:value="2" />
+            android:value="1" />
         <meta-data
             android:name="QUERY_LOG"
             android:value="true" />
         <meta-data
             android:name="DOMAIN_PACKAGE_NAME"
-            android:value="ni.uca.edu.proyectomoviles1" />
+            android:value="ni.edu.uca.proyectomoviles1" />
 
         <activity
             android:name=".MainMenuActivity"

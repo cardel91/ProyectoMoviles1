@@ -1,5 +1,6 @@
 package ni.edu.uca.proyectomoviles1;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -42,6 +43,8 @@ public class EjemploFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private ListView listaEjemplo;
+
     private OnFragmentInteractionListener mListener;
 
     public EjemploFragment() {
@@ -82,6 +85,24 @@ public class EjemploFragment extends Fragment {
         }
     }
 
+
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        List<Grupo> grupos = Grupo.listAll(Grupo.class);
+//        adapter.setGrupos(grupos);
+//        adapter.notifyDataSetChanged();
+//
+//    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        List<Grupo> grupos = Grupo.listAll(Grupo.class);
+        adapter.setGrupos(grupos);
+        adapter.notifyDataSetChanged();
+        listaEjemplo.setAdapter(adapter);
+    }
+
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -89,12 +110,13 @@ public class EjemploFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_ejemplo, container, false);
 
-        ListView listaEjemplo = (ListView) view.findViewById(R.id.listaEjemplo);
+        listaEjemplo = (ListView) view.findViewById(R.id.listaEjemplo);
         Button button  = (Button) view.findViewById(R.id.button2);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), NuevoGrupoActivity.class);
+//                startActivity(intent);
                 startActivity(intent);
             }
         });
@@ -108,7 +130,7 @@ public class EjemploFragment extends Fragment {
 
         List<Grupo> listaGrupos = new ArrayList<>();
 
-        listaGrupos = Grupo.findWithQuery(Grupo.class,"SELECT * FROM GRUPO");
+        listaGrupos = Grupo.listAll(Grupo.class);
 //        listaGrupos.add(grupo1);
 //        listaGrupos.add(grupo2);
 //        listaGrupos.add(grupo3);
@@ -138,19 +160,61 @@ public class EjemploFragment extends Fragment {
 
         listaEjemplo.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
 
-            @Override
-            public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
-
-            }
             private MenuItem mMenuItemEdit;
             private int nr = 0;
+
+            @Override
+            public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
+//                mode.setTitle();
+                if (checked) {
+                    nr++;
+                    adapter.toggleSelection(position);
+                } else {
+                    nr--;
+                    adapter.toggleSelection(position);
+                }
+                mode.setTitle( nr + "seleccionado");
+//                selectedListIndex = position;
+                if(nr == 1){
+                    mMenuItemEdit.setVisible(true);
+                } else{
+                    mMenuItemEdit.setVisible(false);
+                }
+            }
+
+
             public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
                 return false;
             }
 
             @Override
             public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-                return false;
+                switch (item.getItemId()) {
+                    case R.id.action_settings:
+                        SparseBooleanArray selected = adapter.getSelectedIds();
+                        for(int i = selected.size()-1;i>=0;i--){
+                            if(selected.valueAt(i)){
+                                Grupo selectedList = adapter.getItem(selected.keyAt(i));
+                                for(Grupo g : Grupo.find(
+                                        Grupo.class,"id = ?",String.valueOf(
+                                                selectedList.getId()))){
+                                    g.delete();
+                                }
+                                selectedList.delete();
+                                adapter.remove(selectedList);
+                            }
+                        }
+                        if(adapter.getCount() == 0)
+//                            toggleList(OFF);
+                        mode.finish();
+                        return true;
+//                    case R.id.action_edit:
+//                        mode.finish();
+//                        onItemEdit(selectedListIndex);
+//                        return true;
+                    default:
+                        return false;
+                }
             }
 
             @Override
@@ -162,11 +226,11 @@ public class EjemploFragment extends Fragment {
                 nr = 0;
                 MenuInflater inflater = getActivity().getMenuInflater();
                 inflater.inflate(R.menu.menu_main_menu, menu);
-                menu.getItem(0).setTitle("Eliminar");
-                mMenuItemEdit = (MenuItem) menu.findItem(R.id.action_settings);
+                menu.findItem(R.id.action_settings).setTitle("Eliminar");
+                mMenuItemEdit =  menu.findItem(R.id.action_settings);
+                mMenuItemEdit.setVisible(false);
                 return true;
             }
-
         });
         return view;
     }
@@ -209,4 +273,6 @@ public class EjemploFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+
 }

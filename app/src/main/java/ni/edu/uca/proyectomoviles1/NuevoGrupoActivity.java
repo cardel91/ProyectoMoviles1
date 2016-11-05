@@ -24,7 +24,7 @@ public class NuevoGrupoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Grupo grupoNuevo = new Grupo();
-                grupoNuevo.setId(Long.valueOf(id.getText().toString()));
+                grupoNuevo.setIdGrupo(Integer.valueOf(id.getText().toString()));
                 grupoNuevo.setAsignatura(asignatura.getText().toString());
                 grupoNuevo.setCantidadEstudiantes(Integer.valueOf(estudiantes.getText().toString()));
 
